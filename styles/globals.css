@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(203, 213, 225, 0.5);
+  --primary: #4f46e5;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --bg-color: #f1f5f9;
+}
+
+.dark {
+  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --bg-color: #020617;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(224, 231, 255, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(224, 242, 254, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(224, 231, 255, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(224, 242, 254, 1) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(at 0% 0%, #0f172a 0px, transparent 50%),
+    radial-gradient(at 100% 100%, #1e293b 0px, transparent 50%);
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-blur: xl;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    @apply rounded-[40px] transition-all duration-500 overflow-hidden;
+  }
+
+  .sidebar-link {
+    @apply flex items-center space-x-3 px-5 py-3 rounded-xl transition-all duration-200 font-medium;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+}
+
+/* Light mode specific separation fix */
+.bg-white\/60,
+.bg-white\/40,
+.bg-white\/70,
+.bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(203, 213, 225, 0.5) !important;
+}
+
+/* Subtle Dark Mode Overrides - explicitly anchored to html.dark */
+html.dark .bg-white\/60,
+html.dark .bg-white\/40,
+html.dark .bg-white\/70,
+html.dark .bg-white\/5,
+html.dark .bg-white,
+html.dark .bg-slate-50,
+html.dark .bg-slate-100,
+html.dark .bg-slate-50\/50,
+html.dark .bg-white\/40 {
+  background-color: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+}
+
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark input::placeholder {
+  color: #64748b !important;
+}
+
+html.dark body {
+  background-color: #020617 !important;
+  background-image:
+    radial-gradient(at 0% 0%, #0f172a 0px, transparent 50%),
+    radial-gradient(at 100% 100%, #1e293b 0px, transparent 50%) !important;
+}
+
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html.dark .text-slate-700 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
