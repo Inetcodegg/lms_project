@@ -1,0 +1,574 @@
+{
+  "modules": [
+    {
+      "name": "auth",
+      "endpoints": [
+        {
+          "name": "register",
+          "method": "POST",
+          "url": "/api/auth/register",
+          "description": "Register a new user using university email. Assigns default role 'student'.",
+          "request": {
+            "email": "student@university.edu",
+            "password": "securePassword123",
+            "firstName": "John",
+            "lastName": "Doe"
+          },
+          "response": {
+            "uid": "fb_uid_12345",
+            "token": "eyJhbG...jwt_token",
+            "role": "student"
+          }
+        },
+        {
+          "name": "login",
+          "method": "POST",
+          "url": "/api/auth/login",
+          "description": "Authenticate user and return JWT/Firebase token and role-based routing info.",
+          "request": {
+            "email": "student@university.edu",
+            "password": "securePassword123"
+          },
+          "response": {
+            "uid": "fb_uid_12345",
+            "token": "eyJhbG...jwt_token",
+            "role": "student"
+          }
+        },
+        {
+          "name": "updateSession",
+          "method": "PUT",
+          "url": "/api/auth/session",
+          "description": "Refresh user session or update session claims (e.g., role upgrade).",
+          "request": {
+            "refreshToken": "fb_refresh_token_xyz"
+          },
+          "response": {
+            "token": "eyJhbG...new_jwt_token",
+            "expiresIn": 3600
+          }
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "endpoints": [
+        {
+          "name": "getProfile",
+          "method": "GET",
+          "url": "/api/profile/me",
+          "description": "Fetch current user profile including settings like dark mode preference.",
+          "request": {},
+          "response": {
+            "uid": "fb_uid_12345",
+            "role": "student",
+            "firstName": "John",
+            "lastName": "Doe",
+            "theme": "dark",
+            "image": "url"
+          }
+        },
+        {
+          "name": "updateProfile",
+          "method": "PUT",
+          "url": "/api/profile/me",
+          "description": "Update user profile details and settings.",
+          "request": {
+            "theme": "dark",
+            "bio": "3rd-year CS student."
+          },
+          "response": {
+            "success": true,
+            "updatedFields": [
+              "theme",
+              "bio"
+            ]
+          }
+        },
+        {
+          "name": "deleteProfile",
+          "method": "DELETE",
+          "url": "/api/profile/me",
+          "description": "Remove user profile (Admin or self-deletion).",
+          "request": {},
+          "response": {
+            "success": true,
+            "message": "Profile successfully marked for deletion."
+          }
+        }
+      ]
+    },
+    {
+      "name": "portfolio",
+      "endpoints": [
+        {
+          "name": "getPortfolio",
+          "method": "GET",
+          "url": "/api/portfolio/:uid",
+          "description": "Retrieve student achievements and portfolio items.",
+          "request": {},
+          "response": {
+            "items": [
+              {
+                "id": "port_1",
+                "title": "Hackathon Winner",
+                "date": "2023-10-12"
+              }
+            ]
+          }
+        },
+        {
+          "name": "addPortfolioItem",
+          "method": "POST",
+          "url": "/api/portfolio/me",
+          "description": "Add a new achievement to the student's portfolio.",
+          "request": {
+            "title": "Published Paper",
+            "description": "AI in Education",
+            "date": "2023-11-20",
+            "link": "https://doi.org/..."
+          },
+          "response": {
+            "id": "port_2",
+            "success": true
+          }
+        },
+        {
+          "name": "updatePortfolioItem",
+          "method": "PUT",
+          "url": "/api/portfolio/me/:itemId",
+          "description": "Update an existing portfolio achievement.",
+          "request": {
+            "title": "Published Paper (Updated)"
+          },
+          "response": {
+            "success": true
+          }
+        },
+        {
+          "name": "deletePortfolioItem",
+          "method": "DELETE",
+          "url": "/api/portfolio/me/:itemId",
+          "description": "Remove an item from the portfolio.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "schedule",
+      "endpoints": [
+        {
+          "name": "getSchedule",
+          "method": "GET",
+          "url": "/api/schedule",
+          "description": "Get daily/weekly schedule for the authenticated user (student or professor).",
+          "request": {},
+          "response": {
+            "date": "2023-10-25",
+            "lessons": [
+              {
+                "id": "les_123",
+                "course": "Mathematics",
+                "time": "09:00",
+                "room": "A-101",
+                "professorId": "prof_456"
+              }
+            ]
+          }
+        },
+        {
+          "name": "createLesson",
+          "method": "POST",
+          "url": "/api/schedule",
+          "description": "Admin or Academic Administration adds a new lesson to the schedule.",
+          "request": {
+            "courseId": "crs_789",
+            "time": "11:00",
+            "room": "B-202",
+            "professorId": "prof_456"
+          },
+          "response": {
+            "id": "les_124",
+            "success": true
+          }
+        },
+        {
+          "name": "updateLesson",
+          "method": "PUT",
+          "url": "/api/schedule/:lessonId",
+          "description": "Update schedule (e.g., room change). Triggers schedule change notification.",
+          "request": {
+            "room": "C-303"
+          },
+          "response": {
+            "success": true,
+            "notified": true
+          }
+        },
+        {
+          "name": "deleteLesson",
+          "method": "DELETE",
+          "url": "/api/schedule/:lessonId",
+          "description": "Cancel a scheduled lesson.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "grades",
+      "endpoints": [
+        {
+          "name": "getGrades",
+          "method": "GET",
+          "url": "/api/grades/me",
+          "description": "Electronic gradebook: fetch all academic results and grades for the student.",
+          "request": {},
+          "response": {
+            "gpa": 3.8,
+            "courses": [
+              {
+                "courseId": "crs_789",
+                "name": "Data Structures",
+                "grade": "A",
+                "score": 95
+              }
+            ]
+          }
+        },
+        {
+          "name": "addGrade",
+          "method": "POST",
+          "url": "/api/grades",
+          "description": "Professor assigns a grade to a student for a specific assignment/course.",
+          "request": {
+            "studentId": "fb_uid_12345",
+            "courseId": "crs_789",
+            "score": 95,
+            "type": "midterm"
+          },
+          "response": {
+            "id": "grd_001",
+            "success": true
+          }
+        },
+        {
+          "name": "updateGrade",
+          "method": "PUT",
+          "url": "/api/grades/:gradeId",
+          "description": "Professor updates an existing grade.",
+          "request": {
+            "score": 98
+          },
+          "response": {
+            "success": true
+          }
+        },
+        {
+          "name": "deleteGrade",
+          "method": "DELETE",
+          "url": "/api/grades/:gradeId",
+          "description": "Professor or Admin removes a grade record.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        },
+        {
+          "name": "getDebts",
+          "method": "GET",
+          "url": "/api/grades/debts",
+          "description": "Fetch academic debts for the student (triggers push notification logic via backend).",
+          "request": {},
+          "response": {
+            "hasDebts": true,
+            "debts": [
+              {
+                "course": "Physics 101",
+                "status": "retake_required"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "documents",
+      "endpoints": [
+        {
+          "name": "getRequests",
+          "method": "GET",
+          "url": "/api/documents/requests",
+          "description": "Get status of official document requests (e.g., dormitory, study certificates).",
+          "request": {},
+          "response": {
+            "requests": [
+              {
+                "id": "doc_req_1",
+                "type": "dormitory_pass",
+                "status": "processing",
+                "submittedAt": "2023-10-20T10:00:00Z"
+              }
+            ]
+          }
+        },
+        {
+          "name": "createRequest",
+          "method": "POST",
+          "url": "/api/documents/requests",
+          "description": "Student submits a new document request.",
+          "request": {
+            "type": "study_certificate",
+            "destination": "embassy"
+          },
+          "response": {
+            "id": "doc_req_2",
+            "status": "pending"
+          }
+        },
+        {
+          "name": "updateRequestStatus",
+          "method": "PUT",
+          "url": "/api/documents/requests/:id/status",
+          "description": "Academic Administration updates the document request status.",
+          "request": {
+            "status": "ready_for_pickup"
+          },
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "canteen",
+      "endpoints": [
+        {
+          "name": "getMenu",
+          "method": "GET",
+          "url": "/api/canteen/menu",
+          "description": "Get today's canteen menu.",
+          "request": {},
+          "response": {
+            "date": "2023-10-25",
+            "items": [
+              {
+                "id": "food_1",
+                "name": "Palov",
+                "price": 15000,
+                "available": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "addMenuItem",
+          "method": "POST",
+          "url": "/api/canteen/menu",
+          "description": "Chef adds a new item to the menu.",
+          "request": {
+            "name": "Somsa",
+            "price": 5000,
+            "category": "pastry"
+          },
+          "response": {
+            "id": "food_2",
+            "success": true
+          }
+        },
+        {
+          "name": "updateMenuItem",
+          "method": "PUT",
+          "url": "/api/canteen/menu/:itemId",
+          "description": "Chef updates item details or availability.",
+          "request": {
+            "available": false
+          },
+          "response": {
+            "success": true
+          }
+        },
+        {
+          "name": "deleteMenuItem",
+          "method": "DELETE",
+          "url": "/api/canteen/menu/:itemId",
+          "description": "Chef removes an item from the menu.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "endpoints": [
+        {
+          "name": "getEvents",
+          "method": "GET",
+          "url": "/api/events",
+          "description": "Get university events calendar and sports section schedules.",
+          "request": {},
+          "response": {
+            "events": [
+              {
+                "id": "evt_1",
+                "title": "AI Workshop",
+                "date": "2023-11-01",
+                "type": "academic"
+              },
+              {
+                "id": "evt_2",
+                "title": "Football Tryouts",
+                "date": "2023-11-02",
+                "type": "sports"
+              }
+            ]
+          }
+        },
+        {
+          "name": "createEvent",
+          "method": "POST",
+          "url": "/api/events",
+          "description": "Admin creates a new event or sports session.",
+          "request": {
+            "title": "Chess Tournament",
+            "date": "2023-11-05",
+            "type": "sports",
+            "capacity": 30
+          },
+          "response": {
+            "id": "evt_3",
+            "success": true
+          }
+        },
+        {
+          "name": "registerForEvent",
+          "method": "POST",
+          "url": "/api/events/:eventId/register",
+          "description": "Student registers for an event or signs up for a sports section.",
+          "request": {},
+          "response": {
+            "registrationId": "reg_123",
+            "status": "confirmed"
+          }
+        },
+        {
+          "name": "cancelRegistration",
+          "method": "DELETE",
+          "url": "/api/events/:eventId/register",
+          "description": "Student cancels their event registration.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "news_and_board",
+      "endpoints": [
+        {
+          "name": "getNews",
+          "method": "GET",
+          "url": "/api/news",
+          "description": "Get university and student council news feed.",
+          "request": {},
+          "response": {
+            "articles": [
+              {
+                "id": "news_1",
+                "title": "Semester Starts Tomorrow",
+                "author": "Academic Admin",
+                "date": "2023-09-01"
+              }
+            ]
+          }
+        },
+        {
+          "name": "createNews",
+          "method": "POST",
+          "url": "/api/news",
+          "description": "Admin publishes university news.",
+          "request": {
+            "title": "Campus Renovation",
+            "content": "..."
+          },
+          "response": {
+            "id": "news_2",
+            "success": true
+          }
+        },
+        {
+          "name": "getBoardPosts",
+          "method": "GET",
+          "url": "/api/board",
+          "description": "Get notice board items (lost & found, textbook sales).",
+          "request": {},
+          "response": {
+            "posts": [
+              {
+                "id": "post_1",
+                "type": "lost_found",
+                "title": "Lost Keys in A-101",
+                "authorId": "fb_uid_12345"
+              }
+            ]
+          }
+        },
+        {
+          "name": "createBoardPost",
+          "method": "POST",
+          "url": "/api/board",
+          "description": "Student creates a notice board post.",
+          "request": {
+            "type": "buy_sell",
+            "title": "Selling Calculus Textbook",
+            "price": 20000
+          },
+          "response": {
+            "id": "post_2",
+            "success": true
+          }
+        },
+        {
+          "name": "deleteBoardPost",
+          "method": "DELETE",
+          "url": "/api/board/:postId",
+          "description": "Author or Admin deletes a notice board post.",
+          "request": {},
+          "response": {
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "directory",
+      "endpoints": [
+        {
+          "name": "getTeachers",
+          "method": "GET",
+          "url": "/api/directory/teachers",
+          "description": "Public directory of professors and contact information.",
+          "request": {},
+          "response": {
+            "teachers": [
+              {
+                "id": "prof_456",
+                "name": "Dr. Alan Turing",
+                "department": "Computer Science",
+                "email": "alan@university.edu"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
