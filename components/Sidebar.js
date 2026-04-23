@@ -2,11 +2,11 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { 
-    BookOpen, Calendar, CheckSquare, FileText, 
-    LayoutDashboard, LogOut, Settings, Users,
+import {
+    BookOpen, Calendar, CheckSquare, FileText,
+    LayoutDashboard, LogOut, Users,
     Award, Clock, MessageSquare, GraduationCap, Trophy,
-    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper  
+    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen
 } from "lucide-react";
 import { useUser } from "../lib/UserContext";
 import { useLanguage } from "../lib/LanguageContext";
@@ -31,22 +31,23 @@ const getMenuItems = (role, t) => {
         ],
         teacher: [
             { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },
-            { name: t("schedule"), icon: Calendar, path: `${basePath}/schedule` },
+            { name: t("news"), icon: Newspaper, path: `${basePath}/news` },
             { name: t("attendance"), icon: Users, path: `${basePath}/attendance` },
-            { name: t("assignments"), icon: CheckSquare, path: `${basePath}/assignments` },
-            { name: t("exams"), icon: FileText, path: `${basePath}/exams` },
-            { name: t("forum"), icon: MessageSquare, path: `${basePath}/forum` },
-            { name: t("news"), icon: FileText, path: `${basePath}/news` },
+            { name: t("schedule"), icon: Calendar, path: `${basePath}/schedule` },
+            { name: t("submissions"), icon: Inbox, path: `${basePath}/submissions` },
+            { name: t("students"), icon: GraduationCap, path: `${basePath}/students` },
+            { name: t("resources"), icon: FolderOpen, path: `${basePath}/resources` },
+            { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
 
         ],
         admin: [
             { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },
             { name: t("userManagement"), icon: Users, path: `${basePath}/users` },
             { name: t("teachers"), icon: GraduationCap, path: `${basePath}/teachers` },
-            { name: t("schedule"), icon: CalendarRange , path: `${basePath}/schedule` },
+            { name: t("schedule"), icon: CalendarRange, path: `${basePath}/schedule` },
             { name: t("news"), icon: FileText, path: `${basePath}/news` },
-            { name: t("management"), icon: GitFork , path: `${basePath}/management` },
-            { name: t("assignment"), icon: Newspaper  , path: `${basePath}/assignment` },
+            { name: t("management"), icon: GitFork, path: `${basePath}/management` },
+            { name: t("assignment"), icon: Newspaper, path: `${basePath}/assignment` },
 
 
             // { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
@@ -61,19 +62,19 @@ export default function DockNavigation() {
     const router = useRouter();
     const { user, logout } = useUser();
     const { t } = useLanguage();
-    
-    const currentRole = user?.role || "student"; 
+
+    const currentRole = user?.role || "student";
     const links = getMenuItems(currentRole, t);
 
     const handleSignOut = async () => {
-            try {
-                await auth.signOut(); // Firebase'dan uzadi
-                if (logout) logout(); // UserContext ni tozalaydi
-                router.replace('/login'); // Srazu Login sahifasiga otadi va tarixni tozalaydi
-            } catch (error) {
-                console.error("Chiqishda xato:", error);
-            }
-        };
+        try {
+            await auth.signOut(); // Firebase'dan uzadi
+            if (logout) logout(); // UserContext ni tozalaydi
+            router.replace('/login'); // Srazu Login sahifasiga otadi va tarixni tozalaydi
+        } catch (error) {
+            console.error("Chiqishda xato:", error);
+        }
+    };
 
     return (
         <>
@@ -81,7 +82,7 @@ export default function DockNavigation() {
             */}
             <div className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
                 <div className="flex items-end gap-2 px-4 py-3 bg-white/40 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-                    
+
                     {links.map((item) => {
                         const Icon = item.icon;
                         const isExact = pathname === item.path;
@@ -89,7 +90,7 @@ export default function DockNavigation() {
                         const isActive = isExact || isSub;
 
                         return (
-                            <Link key={item.name} href={item.path} className="group relative flex flex-col items-center">
+                            <Link key={item.path} href={item.path} className="group relative flex flex-col items-center">
                                 {/* Mac OS Tooltip */}
                                 <div className="absolute -top-12 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 whitespace-nowrap shadow-xl">
                                     {item.name}
@@ -98,11 +99,10 @@ export default function DockNavigation() {
                                 </div>
 
                                 {/* Ikonka va Animatsiya */}
-                                <div className={`relative p-3.5 rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer ${
-                                    isActive 
-                                    ? "bg-indigo-600 shadow-lg shadow-indigo-500/40 text-white" 
+                                <div className={`relative p-3.5 rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer ${isActive
+                                    ? "bg-indigo-600 shadow-lg shadow-indigo-500/40 text-white"
                                     : "bg-white/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700"
-                                }`}>
+                                    }`}>
                                     <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
                                 </div>
 
@@ -124,10 +124,10 @@ export default function DockNavigation() {
                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
                         </div>
                         <div className="relative p-1 rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer bg-white/50 dark:bg-slate-800/50">
-                            <img 
-                                src={user?.avatar || FALLBACK_AVATAR} 
-                                onError={(e) => {e.target.onerror = null; e.target.src = FALLBACK_AVATAR}}
-                                className="w-10 h-10 rounded-xl object-cover border-2 border-white/50" 
+                            <img
+                                src={user?.avatar || FALLBACK_AVATAR}
+                                onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_AVATAR }}
+                                className="w-10 h-10 rounded-xl object-cover border-2 border-white/50"
                                 alt="Profil"
                             />
                         </div>
@@ -161,11 +161,10 @@ export default function DockNavigation() {
                         const isActive = isExact || isSub;
 
                         return (
-                            <Link key={item.name} href={item.path} className="snap-start shrink-0">
+                            <Link key={item.path} href={item.path} className="snap-start shrink-0">
                                 <div className="flex flex-col items-center justify-center w-16 h-14 relative transition-all duration-300">
-                                    <div className={`p-2 rounded-xl transition-all duration-300 ${
-                                        isActive ? "bg-indigo-600 shadow-md text-white -translate-y-1" : "text-slate-500 dark:text-slate-400"
-                                    }`}>
+                                    <div className={`p-2 rounded-xl transition-all duration-300 ${isActive ? "bg-indigo-600 shadow-md text-white -translate-y-1" : "text-slate-500 dark:text-slate-400"
+                                        }`}>
                                         <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
                                     </div>
                                     {/* Agar yozuvni yashirib faqat icon qilmoqchi bo'lsangiz quyidagi qatorni yashiring */}

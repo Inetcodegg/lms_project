@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Card from "../../../../components/Card";
-import { 
-    Newspaper, Search, Calendar, Eye, 
-    Bookmark, Bell, Filter, Loader2, 
-    ArrowRight, Globe, GraduationCap 
+import {
+    Newspaper, Search, Calendar, Eye,
+    Bookmark, Bell, Filter, Loader2,
+    ArrowRight, Globe, GraduationCap
 } from "lucide-react";
 import { db } from "../../../../lib/firebase";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
@@ -24,7 +24,7 @@ export default function TeacherNewsPage() {
                 setLoading(true);
                 // Faqat 'all' va 'teachers' ga tegishli yangiliklarni olamiz
                 const q = query(
-                    collection(db, "news"), 
+                    collection(db, "news"),
                     where("targetAudience", "in", ["all", "teachers"]),
                     orderBy("createdAt", "desc")
                 );
@@ -50,7 +50,7 @@ export default function TeacherNewsPage() {
 
     return (
         <div className="p-4 md:p-8 w-full max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
-            
+
             {/* Header Section */}
             <header className="mb-6">
                 <div className="flex items-center justify-between mb-4">
@@ -58,36 +58,31 @@ export default function TeacherNewsPage() {
                         <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">E'lonlar paneli</h1>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Siz uchun muhim xabarlar</p>
                     </div>
-                    <div className="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm relative border border-slate-100 dark:border-white/5">
-                        <Bell className="w-5 h-5 text-indigo-500" />
-                        <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800"></span>
-                    </div>
                 </div>
 
                 {/* Search & Filter Bar */}
                 <div className="flex flex-col gap-4">
                     <div className="relative group">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             placeholder="Yangiliklarni qidirish..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full pl-11 pr-4 py-3.5 bg-white/80 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/5 rounded-2xl text-sm font-bold outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-sm"
                         />
                     </div>
-                    
+
                     {/* Horizontal Scroll Categories */}
                     <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
                         {CATEGORIES.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveTab(cat)}
-                                className={`px-5 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${
-                                    activeTab === cat 
-                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' 
+                                className={`px-5 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${activeTab === cat
+                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30'
                                     : 'bg-white dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
-                                }`}
+                                    }`}
                             >
                                 {cat}
                             </button>
@@ -122,7 +117,7 @@ export default function TeacherNewsPage() {
                                     </div>
                                 )}
                             </div>
-                            
+
                             <div className="p-4 flex flex-col flex-1">
                                 <div className="flex items-center gap-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">
                                     <Calendar className="w-3 h-3" />
@@ -134,11 +129,11 @@ export default function TeacherNewsPage() {
                                 <h3 className="text-sm md:text-base font-black text-slate-900 dark:text-white leading-snug mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
                                     {item.title}
                                 </h3>
-                                
+
                                 <p className="text-[12px] text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 font-medium leading-relaxed">
                                     {item.content}
                                 </p>
-                                
+
                                 <div className="mt-auto pt-4 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
                                     <button className="text-[10px] font-black uppercase tracking-widest text-indigo-500 flex items-center group/btn">
                                         Batafsil <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
