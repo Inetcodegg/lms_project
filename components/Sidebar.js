@@ -6,7 +6,7 @@ import {
     BookOpen, Calendar, CheckSquare, FileText,
     LayoutDashboard, LogOut, Users,
     Award, Clock, MessageSquare, GraduationCap, Trophy,
-    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen
+    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen, AlignEndHorizontal 
 } from "lucide-react";
 import { useUser } from "../lib/UserContext";
 import { useLanguage } from "../lib/LanguageContext";
@@ -28,6 +28,8 @@ const getMenuItems = (role, t) => {
             { name: t("forum"), icon: MessageSquare, path: `${basePath}/forum` },
             { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
             { name: t("documents", "Arizalar"), icon: CheckSquare, path: `${basePath}/application` },
+            { name: t("attendance"), icon: AlignEndHorizontal , path: `${basePath}/attendance` },
+
         ],
         teacher: [
             { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },
