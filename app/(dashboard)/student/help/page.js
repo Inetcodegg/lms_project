@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { HelpCircle, Mail, MessageSquare, Phone, ExternalLink, X, Send } from "lucide-react";
 import { useLanguage } from "../../../../lib/LanguageContext";
-import { useUser } from "../../../../lib/UserContext"; // User rolini olish
+import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner"; // User rolini olish
 import { helpApi } from "../../../../lib/api/helpApi";
 import Card from "../../../../components/Card";
 

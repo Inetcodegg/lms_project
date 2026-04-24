@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner";
 import { collection, query, where, getDocs, addDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../../lib/firebase";
 import { 
@@ -361,7 +362,7 @@ export default function SchedulePage() {
                             {/* DARSLAR VA REJALAR */}
                             <div className="absolute inset-0 pt-[60px] grid grid-cols-7 pointer-events-none z-20">
                                 {loading ? (
-                                    <div className="col-span-full flex items-center justify-center pt-20"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin"/></div>
+                                    <div className="col-span-full flex items-center justify-center pt-20"><Spinner className="w-8 h-8 text-indigo-500 animate-spin"/></div>
                                 ) : (
                                     activeWeek.map((dayObj, colIndex) => {
                                         if (scheduleType === 'academic') {
@@ -488,7 +489,7 @@ export default function SchedulePage() {
                             </div>
 
                             <button type="submit" disabled={isSaving} className="w-full py-4 mt-2 bg-emerald-500 text-white rounded-2xl text-xs font-black uppercase tracking-[0.2em] shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-all flex items-center justify-center">
-                                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Jadvalga Qo'shish"}
+                                {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : "Jadvalga Qo'shish"}
                             </button>
                         </form>
                     </div>

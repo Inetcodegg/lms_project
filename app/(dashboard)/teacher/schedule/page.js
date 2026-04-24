@@ -7,6 +7,7 @@ import {
 import { db } from "../../../../lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner";
 
 const DAYS = ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
 const PAIRS = [
@@ -63,7 +64,7 @@ export default function TeacherSchedulePage() {
             </header>
 
             {loading ? (
-                <div className="py-20 flex justify-center"><Loader2 className="w-10 h-10 text-emerald-500 animate-spin" /></div>
+                <div className="py-20 flex justify-center"><Spinner className="w-10 h-10 text-emerald-500 animate-spin" /></div>
             ) : schedules.length === 0 ? (
                 <div className="py-20 text-center bg-white/60 dark:bg-slate-900/40 rounded-3xl border border-dashed border-slate-200 dark:border-white/10">
                     <CalendarDays className="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-3" />

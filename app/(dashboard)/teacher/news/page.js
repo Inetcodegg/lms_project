@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Card from "../../../../components/Card";
+import Spinner from "../../../../components/Spinner";
+
 import {
     Newspaper, Search, Calendar, Eye,
     Bookmark, Bell, Filter, Loader2,
@@ -93,7 +95,7 @@ export default function TeacherNewsPage() {
 
             {/* News Grid */}
             {loading ? (
-                <div className="py-20 flex justify-center"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin" /></div>
+                <div className="py-20 flex justify-center"><Spinner className="w-8 h-8 text-indigo-500 animate-spin" /></div>
             ) : filteredNews.length === 0 ? (
                 <div className="py-20 text-center bg-white/40 dark:bg-slate-900/20 rounded-[32px] border border-dashed border-slate-200 dark:border-white/10">
                     <Newspaper className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />

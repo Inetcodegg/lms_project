@@ -11,6 +11,7 @@ import { managementApi } from "../../../../lib/api/managementApi";
 import { db } from "../../../../lib/firebase";
 import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc, serverTimestamp, query, where } from "firebase/firestore";
 import { notificationsApi } from "../../../../lib/api/notificationsApi";
+import Spinner from "../../../../components/Spinner";
 
 const DAYS = ['Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
 const PAIRS = [
@@ -358,7 +359,7 @@ export default function AdminSchedulePage() {
                         <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
                         
                         <div className="bg-white/20 p-2 rounded-full relative">
-                            {isSendingNotifs ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                            {isSendingNotifs ? <Spinner className="w-4 h-4 text-inherit" /> : <Send className="w-4 h-4" />}
                             {!isSendingNotifs && (
                                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full border-2 border-indigo-600 animate-ping"></span>
                             )}
@@ -397,7 +398,7 @@ export default function AdminSchedulePage() {
             </header>
 
             {loading ? (
-                <div className="py-20 flex justify-center"><Loader2 className="w-10 h-10 text-indigo-500 animate-spin" /></div>
+                <div className="py-20 flex justify-center"><Spinner className="w-10 h-10 text-indigo-500 animate-spin" /></div>
             ) : (
                 <div className="flex flex-col gap-6">
                     <Card className="p-4 md:p-6 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-100 dark:border-white/5 flex flex-col gap-5">
@@ -625,7 +626,7 @@ export default function AdminSchedulePage() {
 
                         <div className="p-6 md:p-8 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-white/5 shrink-0">
                             <button form="schedule-form" type="submit" disabled={isSaving} className="w-full py-4 bg-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-700 shadow-xl shadow-indigo-500/20 active:scale-95 transition-all flex items-center justify-center gap-3">
-                                {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : (editingId ? "Saqlash va Navbatga qo'shish" : "Saqlash va Navbatga qo'shish")}
+                                {isSaving ? <Spinner className="w-5 h-5 animate-spin" /> : (editingId ? "Saqlash va Navbatga qo'shish" : "Saqlash va Navbatga qo'shish")}
                             </button>
                         </div>
                     </div>

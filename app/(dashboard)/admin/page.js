@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { adminApi } from "../../../lib/api/adminApi";
 import { useUser } from "../../../lib/UserContext";
+import Spinner from "../../../components/Spinner";
 
 const FALLBACK_AVATAR = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop";
 

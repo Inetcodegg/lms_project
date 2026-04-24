@@ -243,7 +243,7 @@ export default function LoginPage() {
                             className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black uppercase tracking-widest py-4 rounded-2xl shadow-[0_8px_20px_rgb(79,70,229,0.3)] hover:shadow-[0_8px_25px_rgb(79,70,229,0.5)] transition-all duration-300 flex justify-center items-center group relative overflow-hidden mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
-                                <Loader2 className="w-6 h-6 animate-spin" />
+                                <Spinner className="w-4 h-4 text-inherit" />
                             ) : (
                                 <div className="flex items-center space-x-2">
                                     <span>Tizimga kirish</span>

@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "../../../lib/UserContext";
+import Spinner from "../../../components/Spinner";
 import { Loader2 } from "lucide-react";
+
 
 export default function AdminLayout({ children }) {
     const { user, loading } = useUser();
@@ -29,7 +31,7 @@ export default function AdminLayout({ children }) {
     if (loading || !isAuthorized) {
         return (
             <div className="flex flex-col items-center justify-center h-[100dvh] w-full">
-                <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+                <Spinner className="w-4 h-4 text-inherit" />
             </div>
         );
     }

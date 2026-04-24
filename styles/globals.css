@@ -129,3 +129,51 @@ html.dark .border-slate-200,
 html.dark .border-slate-300 {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* =======================================================
+   ADVANCED 3D MORPHING LOADER (Hech qanday dumaloq yo'q)
+   ======================================================= */
+
+/* 1. Loader2 ning ichidagi eski dumaloq chiziqlarni (path) butunlay yashiramiz */
+svg.lucide-loader-2 * {
+  display: none !important;
+}
+
+/* 2. SVG faylining o'zini yangi, 3D shaklga keltiramiz */
+svg.lucide-loader-2 {
+  display: inline-block !important;
+  width: 24px !important;
+  height: 24px !important;
+  background-color: currentColor !important;
+  /* Rangi qanday bo'lsa shunga mos nur (glow) taratadi */
+  box-shadow: 0 5px 15px -3px currentColor !important; 
+  /* 3D fazoda aylanishi uchun */
+  transform-style: preserve-3d;
+  /* Silliq va chiroyli animatsiya */
+  animation: advanced-morph 2s cubic-bezier(0.77, 0, 0.175, 1) infinite !important;
+  margin: 2px;
+}
+
+/* Kvadrat -> Sfera -> Kvadrat 3D o'tishlari */
+@keyframes advanced-morph {
+  0% {
+    border-radius: 4px;
+    transform: perspective(200px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+  25% {
+    border-radius: 50%;
+    transform: perspective(200px) rotateX(180deg) rotateY(0deg) scale(1.2);
+  }
+  50% {
+    border-radius: 4px;
+    transform: perspective(200px) rotateX(180deg) rotateY(180deg) scale(1);
+  }
+  75% {
+    border-radius: 50%;
+    transform: perspective(200px) rotateX(0deg) rotateY(180deg) scale(1.2);
+  }
+  100% {
+    border-radius: 4px;
+    transform: perspective(200px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+}

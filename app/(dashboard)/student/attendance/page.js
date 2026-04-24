@@ -9,6 +9,7 @@ import Card from "../../../../components/Card";
 import { db } from "../../../../lib/firebase";
 import { collection, query, getDocs } from "firebase/firestore";
 import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner";
 
 const DAYS_SHORT = ["Dush", "Sesh", "Chor", "Pay", "Juma", "Shan", "Yak"];
 
@@ -117,7 +118,7 @@ export default function StudentAttendancePage() {
     const nextMonth = () => setCurrentMonth(new Date(year, month + 1, 1));
 
     if (loading) {
-        return <div className="min-h-screen flex justify-center pt-32"><Loader2 className="w-10 h-10 text-indigo-500 animate-spin" /></div>;
+        return <div className="min-h-screen flex justify-center pt-32"><Spinner className="w-10 h-10 text-indigo-500 animate-spin" /></div>;
     }
 
     // Statistika Arrayi (Ticker uchun)

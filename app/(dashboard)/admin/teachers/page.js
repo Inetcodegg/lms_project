@@ -9,6 +9,7 @@ import {
 import { db } from "../../../../lib/firebase";
 import { collection, getDocs, doc, deleteDoc, updateDoc, query, where } from "firebase/firestore";
 import { adminApi } from "../../../../lib/api/adminApi"; 
+import Spinner from "../../../../components/Spinner";
 
 const FALLBACK_AVATAR = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop";
 
@@ -194,7 +195,7 @@ export default function AdminTeachersPage() {
                         <tbody className="divide-y divide-slate-100/50 dark:divide-white/5">
                             {loading ? (
                                 <tr>
-                                    <td colSpan="4" className="py-20 text-center"><Loader2 className="w-8 h-8 text-emerald-500 animate-spin mx-auto mb-3" /></td>
+                                    <td colSpan="4" className="py-20 text-center"><Spinner className="w-8 h-8 text-emerald-500 animate-spin mx-auto mb-3" /></td>
                                 </tr>
                             ) : filteredTeachers.length === 0 ? (
                                 <tr>
@@ -312,7 +313,7 @@ export default function AdminTeachersPage() {
                             </div>
 
                             <button type="submit" disabled={isAdding} className="w-full mt-4 py-4 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-700 transition-all flex items-center justify-center shadow-lg active:scale-95 disabled:opacity-50">
-                                {isAdding ? <Loader2 className="w-5 h-5 animate-spin" /> : "O'qituvchini Saqlash"}
+                                {isAdding ? <Spinner className="w-5 h-5 animate-spin" /> : "O'qituvchini Saqlash"}
                             </button>
                         </form>
                     </div>
@@ -385,7 +386,7 @@ export default function AdminTeachersPage() {
                             disabled={isSavingPermissions} 
                             className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-all flex items-center justify-center shadow-lg active:scale-95 disabled:opacity-50"
                         >
-                            {isSavingPermissions ? <Loader2 className="w-5 h-5 animate-spin" /> : "Cheklovlarni Saqlash"}
+                            {isSavingPermissions ? <Spinner className="w-5 h-5 animate-spin" /> : "Cheklovlarni Saqlash"}
                         </button>
                     </div>
                 </div>

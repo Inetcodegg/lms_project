@@ -60,7 +60,7 @@ const MenuItem = ({ item, onOrder }) => {
                         disabled={isOrdering}
                         className="p-2 bg-slate-900 dark:bg-indigo-600 text-white rounded-xl hover:bg-indigo-600 dark:hover:bg-indigo-500 transition-all shadow-md active:scale-90 transform disabled:opacity-50"
                     >
-                        {isOrdering ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingCart className="w-4 h-4" />}
+                        {isOrdering ? <Spinner className="w-4 h-4 text-inherit" /> : <ShoppingCart className="w-4 h-4" />}
                     </button>
                 </div>
             </div>

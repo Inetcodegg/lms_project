@@ -10,6 +10,8 @@ import {
 import { db } from "../../../../lib/firebase";
 import { collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { adminApi } from "../../../../lib/api/adminApi"; 
+import Spinner from "../../../../components/Spinner";
+
 
 const FALLBACK_AVATAR = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop";
 
@@ -208,7 +210,7 @@ export default function AdminUsersPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan="5" className="py-20 text-center">
-                                        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin mx-auto mb-3" />
+                                        <Spinner className="w-8 h-8 text-indigo-500 animate-spin mx-auto mb-3" />
                                     </td>
                                 </tr>
                             ) : filteredUsers.length === 0 ? (
@@ -311,7 +313,7 @@ export default function AdminUsersPage() {
                             <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex space-x-3">
                                 <button type="button" onClick={() => setIsEditModalOpen(false)} disabled={isSaving} className="flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition-all">Bekor qilish</button>
                                 <button type="submit" disabled={isSaving || newRole === editingUser.role} className="flex-1 py-3.5 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center justify-center shadow-lg active:scale-95 disabled:opacity-50">
-                                    {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Saqlash"}
+                                    {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : "Saqlash"}
                                 </button>
                             </div>
                         </form>
@@ -374,7 +376,7 @@ export default function AdminUsersPage() {
                                     Bekor qilish
                                 </button>
                                 <button type="submit" disabled={isAdding} className="flex-1 py-3.5 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center justify-center shadow-lg active:scale-95 disabled:opacity-50">
-                                    {isAdding ? <Loader2 className="w-4 h-4 animate-spin" /> : "Qo'shish"}
+                                    {isAdding ? <Spinner className="w-4 h-4 text-inherit" /> : "Qo'shish"}
                                 </button>
                             </div>
                         </form>

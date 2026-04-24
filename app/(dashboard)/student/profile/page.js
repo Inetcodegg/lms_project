@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../../../../lib/LanguageContext";
 import { auth } from "../../../../lib/firebase";
+import Spinner from "../../../../components/Spinner";
 
 const FALLBACK_AVATAR = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop";
 
@@ -156,7 +157,7 @@ export default function ProfilePage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[70vh]">
-                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                <Spinner className="w-8 h-8 text-indigo-500 animate-spin" />
             </div>
         );
     }
@@ -302,7 +303,7 @@ export default function ProfilePage() {
                                         onClick={handleSaveProfile} disabled={isSaving}
                                         className="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-md active:scale-95 disabled:opacity-70 flex items-center justify-center min-w-[140px]"
                                     >
-                                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Save className="w-3.5 h-3.5 mr-2" /> Saqlash</>}
+                                        {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : <><Save className="w-3.5 h-3.5 mr-2" /> Saqlash</>}
                                     </button>
                                 </div>
                             </Card>
@@ -339,7 +340,7 @@ export default function ProfilePage() {
 
                                 <div className="border-t border-slate-100 dark:border-white/5 pt-6 flex justify-end">
                                     <button onClick={handleSaveNotifications} disabled={isSaving} className="w-full sm:w-auto px-6 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md active:scale-95 flex items-center justify-center min-w-[140px]">
-                                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Sozlamalarni Saqlash"}
+                                        {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : "Sozlamalarni Saqlash"}
                                     </button>
                                 </div>
                             </Card>
@@ -386,7 +387,7 @@ export default function ProfilePage() {
                                         onClick={handleUpdatePassword} disabled={isSaving || !passwords.newPass || (passwords.newPass !== passwords.confirmPass)}
                                         className="w-full sm:w-auto px-6 py-3 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 transition-all shadow-md active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[140px]"
                                     >
-                                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Parolni Yangilash"}
+                                        {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : "Parolni Yangilash"}
                                     </button>
                                 </div>
                             </Card>
@@ -425,7 +426,7 @@ export default function ProfilePage() {
 
                             <input type="file" id="avatar-upload" className="hidden" accept="image/*" onChange={handleFileUpload} disabled={isSaving} />
                             <label htmlFor="avatar-upload" className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-700 transition-all cursor-pointer shadow-md active:scale-95 flex items-center">
-                                {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : "Kompuyterdan tanlash"}
+                                {isSaving ? <Spinner className="w-4 h-4 animate-spin mr-2" /> : "Kompuyterdan tanlash"}
                             </label>
                         </div>
                     </div>

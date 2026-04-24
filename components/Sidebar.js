@@ -6,7 +6,7 @@ import {
     BookOpen, Calendar, CheckSquare, FileText,
     LayoutDashboard, LogOut, Users,
     Award, Clock, MessageSquare, GraduationCap, Trophy,
-    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen, AlignEndHorizontal 
+    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen, AlignEndHorizontal, ClipboardCheck, FileMinusCorner  
 } from "lucide-react";
 import { useUser } from "../lib/UserContext";
 import { useLanguage } from "../lib/LanguageContext";
@@ -23,11 +23,11 @@ const getMenuItems = (role, t) => {
             { name: t("schedule", "Dars Jadvali"), icon: Calendar, path: `${basePath}/schedule` },
             { name: t("rankings"), icon: Award, path: `${basePath}/ranking` },
             { name: t("teachers"), icon: GraduationCap, path: `${basePath}/teachers` },
+            { name: t("assignments"), icon: FileMinusCorner , path: `${basePath}/assignments` },
             { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
             { name: t("news"), icon: FileText, path: `${basePath}/news` },
-            { name: t("forum"), icon: MessageSquare, path: `${basePath}/forum` },
+            { name: t("documents"), icon: MessageSquare, path: `${basePath}/docs` },
             { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
-            { name: t("documents", "Arizalar"), icon: CheckSquare, path: `${basePath}/application` },
             { name: t("attendance"), icon: AlignEndHorizontal , path: `${basePath}/attendance` },
 
         ],
@@ -40,6 +40,8 @@ const getMenuItems = (role, t) => {
             { name: t("students"), icon: GraduationCap, path: `${basePath}/students` },
             { name: t("resources"), icon: FolderOpen, path: `${basePath}/resources` },
             { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
+            { name: t("grade"), icon: ClipboardCheck , path: `${basePath}/grade` },
+
 
         ],
         admin: [
@@ -53,7 +55,7 @@ const getMenuItems = (role, t) => {
 
 
             // { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
-            { name: t("systemAnalytics"), icon: ShieldCheck, path: `${basePath}/logs` },
+            { name: t("documents"), icon: ShieldCheck, path: `${basePath}/docs` },
         ]
     };
     return menus[role] || menus.student;

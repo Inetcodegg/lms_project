@@ -9,6 +9,7 @@ import { db, storage } from "../../../../lib/firebase";
 import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { notificationsApi } from "../../../../lib/api/notificationsApi";
+import Spinner from "../../../../components/Spinner";
 
 export default function AdminAssignmentPage() {
     const [assignments, setAssignments] = useState([]);
@@ -159,7 +160,7 @@ export default function AdminAssignmentPage() {
             </header>
 
             {loading ? (
-                <div className="py-20 flex justify-center"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin" /></div>
+                <div className="py-20 flex justify-center"><Spinner className="w-4 h-4 text-inherit" /></div>
             ) : filteredAssignments.length === 0 ? (
                 <div className="py-20 text-center bg-white/60 dark:bg-slate-900/40 rounded-[32px] border border-dashed border-slate-200 dark:border-white/10">
                     <FileText className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
@@ -265,7 +266,7 @@ export default function AdminAssignmentPage() {
                             </div>
 
                             <button type="submit" disabled={isSaving} className="w-full py-4 bg-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl shadow-indigo-500/30 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
-                                {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Send className="w-4 h-4"/> Barcha Guruhlarga Yuborish</>}
+                                {isSaving ? <Spinner className="w-4 h-4 text-inherit" /> : <><Send className="w-4 h-4"/> Barcha Guruhlarga Yuborish</>}
                             </button>
                         </form>
                     </div>

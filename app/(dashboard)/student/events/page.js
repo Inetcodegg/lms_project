@@ -6,7 +6,8 @@ import {
     ArrowRight, ChevronLeft, ChevronRight, Compass, Bell, Bookmark
 } from "lucide-react";
 import { eventsApi } from "../../../../lib/api/eventsApi";
-import { useUser } from "../../../../lib/UserContext"; // User rolini olish uchun
+import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner"; // User rolini olish uchun
 
 // Zaxira rasm (Supabase rasm o'qiy olmasa shu chiqadi)
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=800&q=80&auto=format&fit=crop";

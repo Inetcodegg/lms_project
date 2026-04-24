@@ -8,6 +8,7 @@ import Card from "../../../../components/Card";
 import { db } from "../../../../lib/firebase";
 import { collection, query, where, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
 import { useUser } from "../../../../lib/UserContext";
+import Spinner from "../../../../components/Spinner";
 import { notificationsApi } from "../../../../lib/api/notificationsApi"; 
 
 const getCurrentPair = () => {
@@ -162,7 +163,7 @@ export default function TeacherAttendancePage() {
     };
 
     if (loading && !selectedClass) {
-        return <div className="py-20 flex justify-center"><Loader2 className="w-10 h-10 text-indigo-500 animate-spin" /></div>;
+        return <div className="py-20 flex justify-center"><Spinner className="w-10 h-10 text-indigo-500 animate-spin" /></div>;
     }
 
     return (
@@ -212,7 +213,7 @@ export default function TeacherAttendancePage() {
                             className={`w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.1em] shadow-md transition-all
                             ${(currentPair && isAllMarked) ? 'bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95' : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'}`}
                         >
-                            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 shrink-0" />}
+                            {saving ? <Spinner className="w-4 h-4 text-inherit" /> : <Save className="w-4 h-4 shrink-0" />}
                             {saving ? "Saqlanmoqda..." : !isAllMarked ? "Barchani belgilang" : !currentPair ? "Vaqti emas" : "Saqlash"}
                         </button>
                     )}
@@ -242,7 +243,7 @@ export default function TeacherAttendancePage() {
                 <div className="space-y-6">
                     <Card className="overflow-hidden border border-slate-100 dark:border-white/5 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md p-0 rounded-[24px] shadow-sm">
                         {loading ? (
-                            <div className="py-20 flex justify-center"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin" /></div>
+                            <div className="py-20 flex justify-center"><Spinner className="w-8 h-8 text-indigo-500 animate-spin" /></div>
                         ) : students.length === 0 ? (
                             <div className="py-16 text-center">
                                 <Users className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
