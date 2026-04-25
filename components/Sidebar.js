@@ -6,7 +6,7 @@ import {
     BookOpen, Calendar, CheckSquare, FileText,
     LayoutDashboard, LogOut, Users,
     Award, Clock, MessageSquare, GraduationCap, Trophy,
-    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen, AlignEndHorizontal, ClipboardCheck, FileMinusCorner  
+    Search, HelpCircle, ShieldCheck, CalendarRange, GitFork, Newspaper, Mic, Inbox, FolderOpen, AlignEndHorizontal, ClipboardCheck, FileMinusCorner, UtensilsCrossed
 } from "lucide-react";
 import { useUser } from "../lib/UserContext";
 import { useLanguage } from "../lib/LanguageContext";
@@ -23,12 +23,13 @@ const getMenuItems = (role, t) => {
             { name: t("schedule", "Dars Jadvali"), icon: Calendar, path: `${basePath}/schedule` },
             { name: t("rankings"), icon: Award, path: `${basePath}/ranking` },
             { name: t("teachers"), icon: GraduationCap, path: `${basePath}/teachers` },
-            { name: t("assignments"), icon: FileMinusCorner , path: `${basePath}/assignments` },
+            { name: t("assignments"), icon: FileMinusCorner, path: `${basePath}/assignments` },
+            { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}/kitchen` },
             { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
             { name: t("news"), icon: FileText, path: `${basePath}/news` },
             { name: t("documents"), icon: MessageSquare, path: `${basePath}/docs` },
             { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
-            { name: t("attendance"), icon: AlignEndHorizontal , path: `${basePath}/attendance` },
+            { name: t("attendance"), icon: AlignEndHorizontal, path: `${basePath}/attendance` },
 
         ],
         teacher: [
@@ -36,13 +37,17 @@ const getMenuItems = (role, t) => {
             { name: t("news"), icon: Newspaper, path: `${basePath}/news` },
             { name: t("attendance"), icon: Users, path: `${basePath}/attendance` },
             { name: t("schedule"), icon: Calendar, path: `${basePath}/schedule` },
+            { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}/kitchen` },
             { name: t("submissions"), icon: Inbox, path: `${basePath}/submissions` },
             { name: t("students"), icon: GraduationCap, path: `${basePath}/students` },
             { name: t("resources"), icon: FolderOpen, path: `${basePath}/resources` },
             { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
-            { name: t("grade"), icon: ClipboardCheck , path: `${basePath}/grade` },
+            { name: t("grade"), icon: ClipboardCheck, path: `${basePath}/grade` },
 
 
+        ],
+        chef: [
+            { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}` },
         ],
         admin: [
             { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },

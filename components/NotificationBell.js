@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Bell, CheckCircle2, Info, CalendarClock, AlertTriangle } from "lucide-react";
 import { notificationsApi } from "../lib/api/notificationsApi";
 // useUser yoki useAuth - sizning loyihangizdagi User context
-import { useUser } from "../lib/UserContext"; 
+import { useUser } from "../lib/UserContext";
 
 export default function NotificationBell() {
     const { user } = useUser(); // user.id va user.role kerak
@@ -14,9 +14,9 @@ export default function NotificationBell() {
     // Real-time tinglash
     useEffect(() => {
         if (!user) return;
-        
+
         // onSnapshot orqali ma'lumot kelsa setNotifications'ga o'rnatamiz
-        const unsubscribe = notificationsApi.listenToNotifications(user.role, user.id, (data) => {
+        const unsubscribe = notificationsApi.listenToNotifications(user, (data) => {
             setNotifications(data);
         });
 
@@ -40,7 +40,7 @@ export default function NotificationBell() {
     // Bitta xabarni o'qish
     const handleRead = (notif) => {
         if (!notif.read) {
-            notificationsApi.markAsRead(notif.id, user.id, notif.readBy);
+            notificationsApi.markAsRead(notif.id, user.uid, notif.readBy);
         }
         // Agar linki bo'lsa o'sha sahifaga o'tkazib yuborish mumkin
         if (notif.link) {
@@ -51,7 +51,7 @@ export default function NotificationBell() {
 
     // Barchasini o'qish
     const handleMarkAllRead = () => {
-        notificationsApi.markAllAsRead(notifications, user.id);
+        notificationsApi.markAllAsRead(notifications, user.uid);
     };
 
     // Ikonkalarni turi bo'yicha tanlash
@@ -66,12 +66,12 @@ export default function NotificationBell() {
     return (
         <div className="relative" ref={dropdownRef}>
             {/* QO'NG'IROQCHA TUGMASI */}
-            <button 
+            <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="relative p-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm focus:outline-none"
             >
                 <Bell className="w-5 h-5" />
-                
+
                 {/* Qizil Badge (O'qilmagan xabarlar bo'lsa chiqadi) */}
                 {unreadCount > 0 && (
                     <span className="absolute -top-1 -right-1 flex h-5 w-5">
@@ -86,7 +86,7 @@ export default function NotificationBell() {
             {/* OCHILADIGAN OYNA (DROPDOWN) */}
             {isOpen && (
                 <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 shadow-2xl rounded-[24px] z-[100] overflow-hidden animate-in slide-in-from-top-2 fade-in duration-200">
-                    
+
                     {/* Header */}
                     <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/80 dark:bg-slate-950">
                         <div>
@@ -94,8 +94,8 @@ export default function NotificationBell() {
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">So'nggi xabarlar</p>
                         </div>
                         {unreadCount > 0 && (
-                            <button 
-                                onClick={handleMarkAllRead} 
+                            <button
+                                onClick={handleMarkAllRead}
                                 className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
                             >
                                 Barchasini o'qish
@@ -113,19 +113,19 @@ export default function NotificationBell() {
                         ) : (
                             <div className="divide-y divide-slate-50 dark:divide-slate-800/50">
                                 {notifications.map((notif) => (
-                                    <div 
-                                        key={notif.id} 
+                                    <div
+                                        key={notif.id}
                                         onClick={() => handleRead(notif)}
                                         className={`p-4 cursor-pointer transition-colors flex items-start gap-4 relative group ${notif.read ? 'hover:bg-slate-50 dark:hover:bg-slate-800/50' : 'bg-indigo-50/30 dark:bg-indigo-500/5 hover:bg-indigo-50/80 dark:hover:bg-indigo-500/10'}`}
                                     >
                                         {/* O'qilmagan bo'lsa ko'k chiziqcha */}
                                         {!notif.read && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-indigo-500 rounded-r-full"></div>}
-                                        
+
                                         {/* Ikonka */}
                                         <div className={`p-2.5 rounded-2xl shrink-0 ${notif.read ? 'bg-slate-100 dark:bg-slate-800' : 'bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-white/5'}`}>
                                             {getIcon(notif.type)}
                                         </div>
-                                        
+
                                         {/* Matn */}
                                         <div className="flex-1 pr-2">
                                             <h4 className={`text-sm mb-1 line-clamp-1 ${notif.read ? 'font-bold text-slate-600 dark:text-slate-300' : 'font-black text-slate-900 dark:text-white'}`}>
