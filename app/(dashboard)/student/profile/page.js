@@ -18,18 +18,18 @@ const FALLBACK_AVATAR = "https://images.unsplash.com/photo-1539571696357-5a69c17
 export default function ProfilePage() {
     const router = useRouter();
     const { t } = useLanguage();
-    
+
     // UI Statelari
     const [activeTab, setActiveTab] = useState("profile");
     const [showImageModal, setShowImageModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
-    const [toast, setToast] = useState(null); 
+    const [toast, setToast] = useState(null);
 
     // Data Statelari
     const [user, setUser] = useState(null);
     const [currentAvatar, setCurrentAvatar] = useState(FALLBACK_AVATAR);
-    
+
     // Formalar
     const [formData, setFormData] = useState({ name: '', major: '', year: '' });
     const [notifSettings, setNotifSettings] = useState({ emailAlerts: true, pushNotifs: true, updates: false });
@@ -69,8 +69,8 @@ export default function ProfilePage() {
 
     // 2. Profilni Saqlash
     const handleSaveProfile = async () => {
-        if(!formData.name.trim()) return showToast("Ism bo'sh bo'lishi mumkin emas", "error");
-        
+        if (!formData.name.trim()) return showToast("Ism bo'sh bo'lishi mumkin emas", "error");
+
         setIsSaving(true);
         try {
             await profileApi.updateProfileData({
@@ -96,7 +96,7 @@ export default function ProfilePage() {
         const reader = new FileReader();
         reader.onloadend = () => setCurrentAvatar(reader.result);
         reader.readAsDataURL(file);
-        
+
         setShowImageModal(false);
         setIsSaving(true);
 
@@ -107,7 +107,7 @@ export default function ProfilePage() {
             showToast("Profilingiz rasmi yangilandi!");
         } catch (error) {
             showToast("Rasm yuklashda xatolik.", 'error');
-            setCurrentAvatar(user?.avatar || FALLBACK_AVATAR); 
+            setCurrentAvatar(user?.avatar || FALLBACK_AVATAR);
         } finally {
             setIsSaving(false);
         }
@@ -148,7 +148,7 @@ export default function ProfilePage() {
     };
 
     const handleSignOut = async () => {
-        if(window.confirm("Haqiqatan ham tizimdan chiqmoqchimisiz?")){
+        if (window.confirm("Haqiqatan ham tizimdan chiqmoqchimisiz?")) {
             await auth.signOut();
             router.push('/login');
         }
@@ -164,7 +164,7 @@ export default function ProfilePage() {
 
     return (
         <div className="p-4 sm:p-6 lg:p-8 w-full max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-300 relative">
-            
+
             {toast && (
                 <div className={`fixed top-6 right-6 z-[200] px-5 py-3.5 rounded-xl shadow-xl font-bold text-sm flex items-center space-x-2 animate-in slide-in-from-top-4 duration-300 ${toast.type === 'success' ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'}`}>
                     {toast.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
@@ -189,11 +189,10 @@ export default function ProfilePage() {
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`flex-shrink-0 lg:w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-200 ${
-                                        isActive
-                                        ? 'bg-slate-900 dark:bg-indigo-600 text-white shadow-md'
-                                        : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-                                    }`}
+                                    className={`flex-shrink-0 lg:w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-200 ${isActive
+                                            ? 'bg-slate-900 dark:bg-indigo-600 text-white shadow-md'
+                                            : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                                        }`}
                                 >
                                     <Icon className="w-4 h-4 opacity-80" />
                                     <span>{tab.label}</span>
@@ -215,12 +214,12 @@ export default function ProfilePage() {
 
                 {/* MAIN CONTENT AREA */}
                 <div className="flex-1 w-full min-w-0">
-                    
+
                     {/* TAB 1: SHAXSIY PROFIL */}
                     {activeTab === 'profile' && (
                         <div className="animate-in fade-in duration-300">
                             <Card className="p-5 md:p-8 bg-white/80 dark:bg-slate-900/60 backdrop-blur border border-slate-100 dark:border-white/5 rounded-3xl shadow-sm">
-                                
+
                                 {/* Header Info */}
                                 <div className="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-white/5 pb-4">
                                     <h2 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight">{t('publicProfile') || "Ommaviy Profil"}</h2>
@@ -243,7 +242,7 @@ export default function ProfilePage() {
                                     <div className="flex-1">
                                         <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase leading-tight line-clamp-1">{user?.name}</h3>
                                         <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-widest flex items-center">
-                                            {user?.role === 'admin' ? <ShieldCheck className="w-3 h-3 mr-1 text-rose-500"/> : <User className="w-3 h-3 mr-1 text-indigo-500"/>} 
+                                            {user?.role === 'admin' ? <ShieldCheck className="w-3 h-3 mr-1 text-rose-500" /> : <User className="w-3 h-3 mr-1 text-indigo-500" />}
                                             Rol: {user?.role}
                                         </p>
                                     </div>
@@ -256,7 +255,7 @@ export default function ProfilePage() {
                                         <div className="relative group">
                                             <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                             <input
-                                                type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                                type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                 className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-10 pr-4 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                                             />
                                         </div>
@@ -278,7 +277,7 @@ export default function ProfilePage() {
                                         <div className="relative group">
                                             <Briefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                             <input
-                                                type="text" value={formData.major} onChange={(e) => setFormData({...formData, major: e.target.value})} placeholder={user?.role === 'student' ? "Software Engineering" : "IT Department"}
+                                                type="text" value={formData.major} onChange={(e) => setFormData({ ...formData, major: e.target.value })} placeholder={user?.role === 'student' ? "Software Engineering" : "IT Department"}
                                                 className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-10 pr-4 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                                             />
                                         </div>
@@ -290,7 +289,7 @@ export default function ProfilePage() {
                                         <div className="relative group">
                                             {user?.role === 'student' ? <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /> : <GraduationCap className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />}
                                             <input
-                                                type="text" value={formData.year} onChange={(e) => setFormData({...formData, year: e.target.value})} placeholder={user?.role === 'student' ? "2-kurs" : "Professor"}
+                                                type="text" value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })} placeholder={user?.role === 'student' ? "2-kurs" : "Professor"}
                                                 className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-10 pr-4 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
                                             />
                                         </div>
@@ -299,7 +298,7 @@ export default function ProfilePage() {
 
                                 {/* Saqlash Tugmasi */}
                                 <div className="border-t border-slate-100 dark:border-white/5 pt-6 flex justify-end">
-                                    <button 
+                                    <button
                                         onClick={handleSaveProfile} disabled={isSaving}
                                         className="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-md active:scale-95 disabled:opacity-70 flex items-center justify-center min-w-[140px]"
                                     >
@@ -323,7 +322,7 @@ export default function ProfilePage() {
                                     {[
                                         { id: 'emailAlerts', title: "Email orqali (Asosiy)", desc: "Muhim yangiliklar va tizim o'zgarishlari" },
                                         { id: 'pushNotifs', title: "Ilova ichida (Push)", desc: "Dars jadvali va baholar o'zgarishi" },
-                                        { id: 'updates', title: "Tizim va Platforma", desc: "Aetheria Portal yangilanishlari" }
+                                        { id: 'updates', title: "Tizim va Platforma", desc: "Platforma yangilanishlari" }
                                     ].map((item) => (
                                         <div key={item.id} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
                                             <div className="pr-4">
@@ -331,7 +330,7 @@ export default function ProfilePage() {
                                                 <p className="text-[10px] font-bold text-slate-500 mt-0.5">{item.desc}</p>
                                             </div>
                                             <label className="relative inline-flex items-center cursor-pointer shrink-0">
-                                                <input type="checkbox" className="sr-only peer" checked={notifSettings[item.id]} onChange={(e) => setNotifSettings({...notifSettings, [item.id]: e.target.checked})} />
+                                                <input type="checkbox" className="sr-only peer" checked={notifSettings[item.id]} onChange={(e) => setNotifSettings({ ...notifSettings, [item.id]: e.target.checked })} />
                                                 <div className="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 peer-checked:after:border-white"></div>
                                             </label>
                                         </div>
@@ -352,7 +351,7 @@ export default function ProfilePage() {
                         <div className="animate-in fade-in duration-300">
                             <Card className="p-5 md:p-8 bg-white/80 dark:bg-slate-900/60 backdrop-blur border border-rose-100 dark:border-rose-500/10 rounded-3xl shadow-sm">
                                 <div className="mb-6 border-b border-slate-100 dark:border-white/5 pb-4 flex items-center gap-3">
-                                    <div className="p-2 bg-rose-50 dark:bg-rose-500/10 rounded-lg"><KeyRound className="w-5 h-5 text-rose-500"/></div>
+                                    <div className="p-2 bg-rose-50 dark:bg-rose-500/10 rounded-lg"><KeyRound className="w-5 h-5 text-rose-500" /></div>
                                     <div>
                                         <h2 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight">Xavfsizlik va Kirish</h2>
                                         <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-widest">Akkaunt parolini himoyalash</p>
@@ -383,7 +382,7 @@ export default function ProfilePage() {
                                 </div>
 
                                 <div className="border-t border-slate-100 dark:border-white/5 pt-6 flex justify-end">
-                                    <button 
+                                    <button
                                         onClick={handleUpdatePassword} disabled={isSaving || !passwords.newPass || (passwords.newPass !== passwords.confirmPass)}
                                         className="w-full sm:w-auto px-6 py-3 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 transition-all shadow-md active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[140px]"
                                     >

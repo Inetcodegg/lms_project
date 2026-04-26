@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { 
-    Bell, Search, LogOut, User, 
+import {
+    Bell, Search, LogOut, User,
     Moon, Sun, ChevronDown, Menu,
-    CheckCircle2, Info, CalendarClock, AlertTriangle, 
-    Monitor, Palette, LayoutDashboard, Trophy, 
+    CheckCircle2, Info, CalendarClock, AlertTriangle,
+    Monitor, Palette, LayoutDashboard, Trophy,
     GraduationCap, Medal, Newspaper, FileText, Settings, PackageSearch, Loader2
 } from 'lucide-react';
 import { useUser } from '../lib/UserContext';
@@ -33,27 +33,27 @@ export default function Header() {
     const pathname = usePathname();
     const router = useRouter();
     const { user, logout } = useUser();
-    
+
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
     // --- Dropdown States ---
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
-    
+
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isNotifOpen, setIsNotifOpen] = useState(false);
-    const [isThemeOpen, setIsThemeOpen] = useState(false); 
-    
+    const [isThemeOpen, setIsThemeOpen] = useState(false);
+
     // --- GLOBAL QIDIRUV (SMART SEARCH) STATES ---
     const [searchQuery, setSearchQuery] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSearching, setIsSearching] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
-    const [isVisible, setIsVisible] = useState(true); 
+    const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    
+
     const profileRef = useRef(null);
     const notifRef = useRef(null);
     const themeRef = useRef(null);
@@ -76,7 +76,7 @@ export default function Header() {
             if (currentScrollY < 50) setIsVisible(true);
             else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) setIsVisible(false);
             else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) setIsVisible(true);
-            
+
             setLastScrollY(currentScrollY);
             setIsProfileOpen(false);
             setIsNotifOpen(false);
@@ -93,10 +93,10 @@ export default function Header() {
         if (!user || !user.uid) return;
         const unsubscribe = notificationsApi.listenToNotifications(user, (data) => {
             // Mantiq: Bazadan kelgan xatolar (hammaga kelgan xabarlar) filtri (Backenddagi xatoni yopish)
-            const safeData = data.filter(n => 
-                n.targetRoles?.includes(user.uid) || 
-                n.targetRoles?.includes(user.role) || 
-                n.targetRoles?.includes(user.groupId) || 
+            const safeData = data.filter(n =>
+                n.targetRoles?.includes(user.uid) ||
+                n.targetRoles?.includes(user.role) ||
+                n.targetRoles?.includes(user.groupId) ||
                 n.targetRoles?.includes('all')
             );
             setNotifications(safeData);
@@ -139,7 +139,7 @@ export default function Header() {
 
                 const [newsSnap, usersSnap, itemsSnap] = await Promise.all([
                     getDocs(query(collection(db, "news"), orderBy("createdAt", "desc"), limit(50))),
-                    getDocs(query(collection(db, "users"), limit(50))), 
+                    getDocs(query(collection(db, "users"), limit(50))),
                     getDocs(query(collection(db, "lost_found"), orderBy("createdAt", "desc"), limit(50)))
                 ]);
 
@@ -266,17 +266,16 @@ export default function Header() {
     };
 
     return (
-        <header 
-            className={`absolute top-0 left-0 right-0 z-40 transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${
-                isVisible ? 'translate-y-0' : '-translate-y-full'
-            }`}
+        <header
+            className={`absolute top-0 left-0 right-0 z-40 transition-transform duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isVisible ? 'translate-y-0' : '-translate-y-full'
+                }`}
         >
             <div className="w-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border-b border-white/40 dark:border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.05)] transition-all duration-300">
                 <div className="flex items-center justify-between px-4 md:px-6 lg:px-10 h-16 md:h-20 max-w-[1920px] mx-auto gap-4">
-                    
+
                     {/* Chap qism */}
                     <div className="flex items-center space-x-3 shrink-0">
-                        <button 
+                        <button
                             onClick={() => document.dispatchEvent(new CustomEvent('toggle-sidebar'))}
                             className="lg:hidden p-2 -ml-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-800 transition-colors"
                         >
@@ -286,9 +285,6 @@ export default function Header() {
                             <h2 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-none drop-shadow-sm">
                                 {getPageTitle()}
                             </h2>
-                            <p className="text-[9px] md:text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mt-1 hidden sm:block">
-                                Aetheria Portal
-                            </p>
                         </div>
                     </div>
 
@@ -300,7 +296,7 @@ export default function Header() {
                             ) : (
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-600 transition-colors z-10" />
                             )}
-                            
+
                             <input
                                 type="text"
                                 placeholder="Ism, maqola, dars yoki buyum izlash..."
@@ -309,11 +305,11 @@ export default function Header() {
                                 onFocus={() => searchQuery.trim().length > 0 && setIsSearchOpen(true)}
                                 className={`w-full bg-white/40 dark:bg-slate-800/40 border border-slate-200/50 dark:border-white/10 py-2.5 pl-11 pr-4 text-xs font-bold outline-none focus:ring-2 focus:ring-indigo-500/30 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-700 dark:text-slate-200 shadow-sm backdrop-blur-md ${isSearchOpen ? 'rounded-t-2xl rounded-b-none border-b-transparent' : 'rounded-2xl'}`}
                             />
-                            
+
                             {isSearchOpen && (
                                 <div className="absolute top-full left-0 w-full bg-white dark:bg-slate-800 border border-t-0 border-slate-200/50 dark:border-white/10 rounded-b-2xl shadow-2xl overflow-hidden pt-1">
                                     <div className="max-h-[60vh] overflow-y-auto custom-scrollbar p-2 flex flex-col gap-1">
-                                        
+
                                         {isSearching && searchResults.length === 0 ? (
                                             <div className="py-8 text-center text-slate-400 flex flex-col items-center animate-in fade-in duration-300">
                                                 <Loader2 className="w-6 h-6 mb-2 text-indigo-400 animate-spin" />
@@ -335,10 +331,10 @@ export default function Header() {
                                                         style={{ animationDelay: `${index * 30}ms` }}
                                                     >
                                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-colors
-                                                            ${result.type === 'person' ? 'bg-amber-50 text-amber-500 dark:bg-amber-500/10' : 
-                                                              result.type === 'news' ? 'bg-emerald-50 text-emerald-500 dark:bg-emerald-500/10' : 
-                                                              result.type === 'item' ? 'bg-rose-50 text-rose-500 dark:bg-rose-500/10' : 
-                                                              'bg-slate-100 text-slate-500 dark:bg-slate-700/50 group-hover:bg-white dark:group-hover:bg-slate-700'}
+                                                            ${result.type === 'person' ? 'bg-amber-50 text-amber-500 dark:bg-amber-500/10' :
+                                                                result.type === 'news' ? 'bg-emerald-50 text-emerald-500 dark:bg-emerald-500/10' :
+                                                                    result.type === 'item' ? 'bg-rose-50 text-rose-500 dark:bg-rose-500/10' :
+                                                                        'bg-slate-100 text-slate-500 dark:bg-slate-700/50 group-hover:bg-white dark:group-hover:bg-slate-700'}
                                                         `}>
                                                             <Icon className="w-5 h-5" />
                                                         </div>
@@ -362,11 +358,11 @@ export default function Header() {
 
                     {/* O'ng qism */}
                     <div className="flex items-center space-x-2 md:space-x-4 shrink-0">
-                        
+
                         {/* THEME TOGGLE */}
                         {mounted && (
                             <div className="relative hidden sm:block" ref={themeRef}>
-                                <button 
+                                <button
                                     onClick={() => { setIsThemeOpen(!isThemeOpen); setIsNotifOpen(false); setIsProfileOpen(false); setIsSearchOpen(false); }}
                                     className={`p-2 md:p-2.5 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-white/40 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/50 dark:border-white/10 rounded-xl transition-all shadow-sm ${isThemeOpen ? 'ring-2 ring-indigo-500/20' : ''}`}
                                 >
@@ -396,7 +392,7 @@ export default function Header() {
 
                         {/* 🌟 XABARNOMALAR */}
                         <div className="relative" ref={notifRef}>
-                            <button 
+                            <button
                                 onClick={() => { setIsNotifOpen(!isNotifOpen); setIsProfileOpen(false); setIsThemeOpen(false); setIsSearchOpen(false); }}
                                 className="relative p-2 md:p-2.5 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-white/40 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/50 dark:border-white/10 rounded-xl transition-all group shadow-sm"
                             >
@@ -449,7 +445,7 @@ export default function Header() {
                                             </div>
                                         )}
                                     </div>
-                                    
+
                                     <div className="p-2 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-950/50">
                                         <Link href={`/${user?.role || 'student'}/notifications`} onClick={() => setIsNotifOpen(false)}>
                                             <button className="w-full py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-white dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm">
@@ -463,14 +459,14 @@ export default function Header() {
 
                         {/* PROFIL MENU */}
                         <div className="relative" ref={profileRef}>
-                            <button 
+                            <button
                                 onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNotifOpen(false); setIsThemeOpen(false); setIsSearchOpen(false); }}
                                 className="flex items-center space-x-2 md:space-x-3 p-1 pr-2 md:pr-3 bg-white/40 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/50 dark:border-white/10 rounded-full md:rounded-[24px] transition-all shadow-sm"
                             >
-                                <img 
-                                    src={user?.avatar || FALLBACK_AVATAR} 
-                                    onError={(e) => {e.target.onerror = null; e.target.src = FALLBACK_AVATAR}}
-                                    alt="Profile" 
+                                <img
+                                    src={user?.avatar || FALLBACK_AVATAR}
+                                    onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_AVATAR }}
+                                    alt="Profile"
                                     className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover bg-slate-100 ring-2 ring-white/50 dark:ring-slate-700/50"
                                 />
                                 <div className="hidden sm:flex flex-col items-start text-left">
@@ -493,17 +489,17 @@ export default function Header() {
                                                 <span>Shaxsiy Profil</span>
                                             </div>
                                         </Link>
-                                        
+
                                         <div className="sm:hidden border-t border-slate-100 dark:border-slate-800 mt-2 pt-2 px-4 py-3 flex justify-between items-center">
                                             <span className="text-[11px] font-black uppercase tracking-widest text-slate-500">Mavzu:</span>
                                             <div className="flex gap-2">
-                                                <button onClick={() => setTheme('light')} className={`p-1.5 rounded-lg ${theme === 'light' ? 'bg-indigo-50 text-indigo-600' : 'text-slate-400'}`}><Sun className="w-4 h-4"/></button>
-                                                <button onClick={() => setTheme('dark')} className={`p-1.5 rounded-lg ${theme === 'dark' ? 'bg-slate-800 text-indigo-400' : 'text-slate-400'}`}><Moon className="w-4 h-4"/></button>
+                                                <button onClick={() => setTheme('light')} className={`p-1.5 rounded-lg ${theme === 'light' ? 'bg-indigo-50 text-indigo-600' : 'text-slate-400'}`}><Sun className="w-4 h-4" /></button>
+                                                <button onClick={() => setTheme('dark')} className={`p-1.5 rounded-lg ${theme === 'dark' ? 'bg-slate-800 text-indigo-400' : 'text-slate-400'}`}><Moon className="w-4 h-4" /></button>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="p-2 border-t border-slate-100 dark:border-white/5">
-                                        <button 
+                                        <button
                                             onClick={handleSignOut}
                                             className="w-full flex items-center space-x-3 px-4 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
                                         >
