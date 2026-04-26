@@ -171,8 +171,7 @@ export default function LoginPage() {
 
                 <div className="text-xs xl:text-sm font-medium text-slate-400 flex items-center space-x-8">
                     <span className="hover:text-white cursor-pointer transition-colors">© 2026 Aetheria</span>
-                    <span className="hover:text-white cursor-pointer transition-colors">Maxfiylik</span>
-                    <span className="hover:text-white cursor-pointer transition-colors">Yordam Markazi</span>
+                    <span className="hover:text-white cursor-pointer transition-colors">Campus LMS tizimiga kirish</span>
                 </div>
             </div>
 
