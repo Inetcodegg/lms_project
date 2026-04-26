@@ -99,7 +99,7 @@ export default function DockNavigation() {
                         const isActive = isExact || isSub;
 
                         return (
-                            <Link key={item.path} href={item.path} className="group relative flex flex-col items-center">
+                            <Link key={item.path} href={item.path} className="group relative flex flex-col items-center shrink-0">
                                 {/* Mac OS Tooltip */}
                                 <div className="absolute -top-12 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 whitespace-nowrap shadow-xl">
                                     {item.name}
@@ -127,12 +127,12 @@ export default function DockNavigation() {
                     <div className="w-px h-10 bg-slate-300 dark:bg-white/10 mx-2 self-center"></div>
 
                     {/* Profil Sozlamalari */}
-                    <Link href={`/${currentRole}/profile`} className="group relative flex flex-col items-center">
+                    <Link href={`/${currentRole}/profile`} className="group relative flex flex-col items-center shrink-0">
                         <div className="absolute -top-12 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 shadow-xl">
                             {t("settings")}
                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
                         </div>
-                        <div className="relative p-1 rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer bg-white/50 dark:bg-slate-800/50">
+                        <div className="relative w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer bg-white/50 dark:bg-slate-800/50">
                             <img
                                 src={user?.avatar || FALLBACK_AVATAR}
                                 onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_AVATAR }}
@@ -146,7 +146,7 @@ export default function DockNavigation() {
                     </Link>
 
                     {/* Chiqish (LogOut) */}
-                    <button onClick={handleSignOut} className="group relative flex flex-col items-center">
+                    <button onClick={handleSignOut} className="group relative flex flex-col items-center shrink-0">
                         <div className="absolute -top-12 px-3 py-1.5 bg-rose-600 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 whitespace-nowrap shadow-xl">
                             {t("signOut")}
                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-rose-600 rotate-45"></div>
