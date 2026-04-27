@@ -21,28 +21,28 @@ const getMenuItems = (role, t) => {
         student: [
             { name: t("dashboard", "Bosh panel"), icon: LayoutDashboard, path: `${basePath}` },
             { name: t("schedule", "Dars Jadvali"), icon: Calendar, path: `${basePath}/schedule` },
-            { name: t("rankings"), icon: Award, path: `${basePath}/ranking` },
-            { name: t("teachers"), icon: GraduationCap, path: `${basePath}/teachers` },
-            { name: t("assignments"), icon: FileMinusCorner, path: `${basePath}/assignments` },
+            { name: t("rankings", "Reyting"), icon: Award, path: `${basePath}/ranking` },
+            { name: t("teachers", "O'qituvchilar"), icon: GraduationCap, path: `${basePath}/teachers` },
+            { name: t("assignments", "Topshiriqlar"), icon: FileMinusCorner, path: `${basePath}/assignments` },
             { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}/kitchen` },
-            { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
-            { name: t("news"), icon: FileText, path: `${basePath}/news` },
-            { name: t("documents"), icon: MessageSquare, path: `${basePath}/docs` },
-            { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
-            { name: t("attendance"), icon: AlignEndHorizontal, path: `${basePath}/attendance` },
+            { name: t("sports", "Sport"), icon: Trophy, path: `${basePath}/sports` },
+            { name: t("news", "Yangiliklar"), icon: FileText, path: `${basePath}/news` },
+            { name: t("documents", "Hujjatlar"), icon: MessageSquare, path: `${basePath}/docs` },
+            { name: t("lostFound", "Yo'qolgan buyumlar"), icon: Search, path: `${basePath}/lost-found` },
+            { name: t("attendance", "Davomat"), icon: AlignEndHorizontal, path: `${basePath}/attendance` },
 
         ],
         teacher: [
-            { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },
-            { name: t("news"), icon: Newspaper, path: `${basePath}/news` },
-            { name: t("attendance"), icon: Users, path: `${basePath}/attendance` },
-            { name: t("schedule"), icon: Calendar, path: `${basePath}/schedule` },
+            { name: t("dashboard", "Bosh panel"), icon: LayoutDashboard, path: `${basePath}` },
+            { name: t("news", "Yangiliklar"), icon: Newspaper, path: `${basePath}/news` },
+            { name: t("attendance", "Davomat"), icon: Users, path: `${basePath}/attendance` },
+            { name: t("schedule", "Dars Jadvali"), icon: Calendar, path: `${basePath}/schedule` },
             { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}/kitchen` },
-            { name: t("submissions"), icon: Inbox, path: `${basePath}/submissions` },
-            { name: t("students"), icon: GraduationCap, path: `${basePath}/students` },
-            { name: t("resources"), icon: FolderOpen, path: `${basePath}/resources` },
-            { name: t("lostFound"), icon: Search, path: `${basePath}/lost-found` },
-            { name: t("grade"), icon: ClipboardCheck, path: `${basePath}/grade` },
+            { name: t("submissions", "Yuborilgan ishlar"), icon: Inbox, path: `${basePath}/submissions` },
+            { name: t("students", "O'quvchilar"), icon: GraduationCap, path: `${basePath}/students` },
+            { name: t("resources", "Resurslar"), icon: FolderOpen, path: `${basePath}/resources` },
+            { name: t("lostFound", "Yo'qolgan buyumlar"), icon: Search, path: `${basePath}/lost-found` },
+            { name: t("grade", "Baholash"), icon: ClipboardCheck, path: `${basePath}/grade` },
 
 
         ],
@@ -50,17 +50,17 @@ const getMenuItems = (role, t) => {
             { name: t("kitchen", "Oshxona"), icon: UtensilsCrossed, path: `${basePath}` },
         ],
         admin: [
-            { name: t("dashboard"), icon: LayoutDashboard, path: `${basePath}` },
-            { name: t("userManagement"), icon: Users, path: `${basePath}/users` },
-            { name: t("teachers"), icon: GraduationCap, path: `${basePath}/teachers` },
-            { name: t("schedule"), icon: CalendarRange, path: `${basePath}/schedule` },
-            { name: t("news"), icon: FileText, path: `${basePath}/news` },
-            { name: t("management"), icon: GitFork, path: `${basePath}/management` },
-            { name: t("assignment"), icon: Newspaper, path: `${basePath}/assignment` },
+            { name: t("dashboard", "Bosh panel"), icon: LayoutDashboard, path: `${basePath}` },
+            { name: t("userManagement", "Foydalanuvchilar"), icon: Users, path: `${basePath}/users` },
+            { name: t("teachers", "O'qituvchilar"), icon: GraduationCap, path: `${basePath}/teachers` },
+            { name: t("schedule", "Dars Jadvali"), icon: CalendarRange, path: `${basePath}/schedule` },
+            { name: t("news", "Yangiliklar"), icon: FileText, path: `${basePath}/news` },
+            { name: t("management", "Boshqaruv"), icon: GitFork, path: `${basePath}/management` },
+            { name: t("assignment", "Topshiriq"), icon: Newspaper, path: `${basePath}/assignment` },
 
 
             // { name: t("sports"), icon: Trophy, path: `${basePath}/sports` },
-            { name: t("documents"), icon: ShieldCheck, path: `${basePath}/docs` },
+            { name: t("documents", "Hujjatlar"), icon: ShieldCheck, path: `${basePath}/docs` },
         ]
     };
     return menus[role] || menus.student;
@@ -129,7 +129,7 @@ export default function DockNavigation() {
                     {/* Profil Sozlamalari */}
                     <Link href={`/${currentRole}/profile`} className="group relative flex flex-col items-center shrink-0">
                         <div className="absolute -top-12 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 shadow-xl">
-                            {t("settings")}
+                            {t("settings", "Sozlamalar")}
                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
                         </div>
                         <div className="relative w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer bg-white/50 dark:bg-slate-800/50">
@@ -148,7 +148,7 @@ export default function DockNavigation() {
                     {/* Chiqish (LogOut) */}
                     <button onClick={handleSignOut} className="group relative flex flex-col items-center shrink-0">
                         <div className="absolute -top-12 px-3 py-1.5 bg-rose-600 text-white text-[11px] font-black uppercase tracking-widest rounded-xl opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 pointer-events-none transition-all duration-300 whitespace-nowrap shadow-xl">
-                            {t("signOut")}
+                            {t("signOut", "Chiqish")}
                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-rose-600 rotate-45"></div>
                         </div>
                         <div className="relative p-3.5 rounded-2xl transition-all duration-300 ease-out origin-bottom hover:scale-[1.3] hover:-translate-y-2 hover:mx-2 cursor-pointer text-rose-500 bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-100 dark:hover:bg-rose-500/20">
@@ -191,7 +191,7 @@ export default function DockNavigation() {
                         <div className="p-2 bg-rose-50 dark:bg-rose-500/10 rounded-xl">
                             <LogOut className="w-5 h-5" />
                         </div>
-                        <span className="text-[8px] font-bold mt-1">{t('signOut')}</span>
+                        <span className="text-[8px] font-bold mt-1">{t('signOut', 'Chiqish')}</span>
                     </button>
                 </div>
             </div>
